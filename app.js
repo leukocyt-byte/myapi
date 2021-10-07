@@ -1,11 +1,21 @@
 const express = require('express');
 const app = express();
 const morgan = require('morgan');
+const mongoose = require('mongoose');
 
 const productRoutes = require('./api/routes/products');
 const orderRoutes = require('./api/routes/orders');
 
 app.use(morgan('dev'));
+
+mongoose.connect(
+  'mongodb+srv://shopuser:' +
+    process.env.MONGO_ATLAS_PW +
+    '@shopcluster.ibh5c.mongodb.net/myFirstDatabase?retryWrites=true&w=majority',
+  {
+    // useMongoClient: true,
+  }
+);
 
 app.use(
   express.urlencoded({
